@@ -17,34 +17,41 @@ export default class Register extends React.Component {
     this.handleChange = this.handleChange.bind(this);
 
     this.state = {
-      value: ""
+      name: ""
     };
   }
 
   getValidationState() {
-    //Validamos
+    const length = this.state.name.length;
+    if (length > 10) return "success";
+    else if (length > 5) return "warning";
+    else if (length > 0) return "error";
+    return null;
   }
 
   handleChange(e) {
-    this.setState({ value: e.target.value });
+    this.setState({ name: e.target.value });
   }
 
   render() {
     return (
-      <div className="wrapper">
+      <div className="wrapper-register">
         <h3>Register Page</h3>
+        <FormGroup
+          controlId="formBasicText"
+          validationState={this.getValidationState()}
+        />
         <form>
           <Form inline>
             <FormGroup controlId="formInlineName">
-              <ControlLabel>Name</ControlLabel>{' '}
-              <FormControl type="text" placeholder="Jane Doe" />
-            </FormGroup>{' '}
-            <FormGroup controlId="formInlineEmail">
-              <ControlLabel>Email</ControlLabel>{' '}
-              <FormControl type="email" placeholder="jane.doe@example.com" />
-            </FormGroup>{' '}
-            <Button type="submit">Send invitation</Button>
-          </Form>;
+              <ControlLabel>Name</ControlLabel> <FormControl type="text" />
+            </FormGroup>{" "}
+            <FormGroup controlId="formInlinePassword">
+              <ControlLabel>Password</ControlLabel>{" "}
+              <FormControl type="password" placeholder={this.state.name} />
+            </FormGroup>{" "}
+            <Button type="submit">Register</Button>
+          </Form>
         </form>
       </div>
     );
